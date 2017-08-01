@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="EdittextType">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/editTextHeigh</item>
+        <item name="android:layout_marginBottom">@dimen/margin_edit_text</item>
+        <item name="android:background">@color/colorGray</item>
+        <item name="android:gravity">fill_horizontal</item>
+        <item name="android:lines">1</item>
+        <item name="android:selectAllOnFocus">true</item>
+    </style>
+
+    // Style để dialog vừa khớp màn hình nhưng không full screen
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+</resources>

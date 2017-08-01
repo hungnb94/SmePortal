@@ -1,0 +1,102 @@
+<resources>
+    <string name="title">Login form</string>
+    <string name="registration">Sign up</string>
+    <string name="app_name">SMEPortal</string>
+    <string name="exit">Exit</string>
+    <string name="clear">Clear</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="back">Back</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign up</string>
+    <string name="logout_text">Log out</string>
+    <string name="sign_in_google">Sign In google</string>
+    <string name="sign_in_facebook">Sign In Facebook</string>
+    <string name="remember_me">Remember me</string>
+    <string name="the_project" translatable="false">The Project</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="re_enter_password">Re-enter password</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="already_member">Already member?</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="new_to_we_the_project">New to We the Project</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="lack_email_or_password">Lack of email or password</string>
+    <string name="please_input_full">Be sure enter email and password</string>
+    <string name="ok">OK</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="location">Location</string>
+    <string name="save_change">Save change</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="blocked_users">Blocked Users</string>
+    <string name="open_roles">Open roles: </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_your_role">Choose your role</string>
+    <string name="enter_mood_message">Enter mood message</string>
+    <string name="biography">Biography</string>
+    <string name="website">Website</string>
+    <string name="add">Add</string>
+    <string name="portfolio">Portfolio</string>
+    <string name="this_field_cannot_be_blank">This field cannot be blank</string>
+    <string name="reset_password_failure">Reset password failure</string>
+    <string name="hello">Hello</string>
+    <string name="network_unavailable">Network unavailable</string>
+    <string name="turn_on_network_connection">Turn on your network connection</string>
+    <string name="sort_by">Sort by</string>
+    <string name="every_where">Every where</string>
+    <string name="near_me">Near me</string>
+    <string name="near">Near</string>
+    <string name="roles">Roles</string>
+    <string name="get_following_failure">Get list following failure</string>
+    <string name="settings">Settings</string>
+    <string name="account_details">Account details</string>
+    <string name="notifications">Notifications</string>
+
+    <array name="list_filter">
+        <item>Recommended to you</item>
+        <item>Staff Picks</item>
+        <item>Favorites</item>
+        <item>Following</item>
+        <item>Everything</item>
+        <item>Episodic (Series)</item>
+        <item>Feature (long format)</item>
+        <item>Short film (short format)</item>
+        <item>Animation 2D/3D</item>
+        <item>Industrial</item>
+        <item>Commercial</item>
+        <item>Music Video</item>
+        <item>Dance</item>
+        <item>VR/360/new tech</item>
+        <item>Every thing</item>
+    </array>
+    <array name="list_sort_by">
+        <item>Popularity (viewed)</item>
+        <item>MostApplied</item>
+        <item>Newest</item>
+        <item>Ending soonest</item>
+        <item>Primary role</item>
+        <item>Secondary role</item>
+        <item>Sort by</item>
+    </array>
+    <array name="list_role">
+        <item>1ST ASSISTANT CAMERA (AC)</item>
+        <item>1ST ASSISTANT DIRECTOR (AD)</item>
+        <item>2ND ASSISTANT CAMERA (AC)</item>
+        <item>2ND ASSISTANT DIRECTOR (AD)</item>
+        <item>2ND COSTUMER</item>
+        <item>Actor/Actress</item>
+        <item>ART DEPARTMENT COORDINATOR</item>
+        <item>ASSISTANT EDITOR</item>
+        <item>BEST BOY GRIP</item>
+        <item>BEST BOY ELECTRIC</item>
+        <item>BOOM OPEARATOR</item>
+        <item>CAMERA TECH</item>
+        <item>Roles</item>
+    </array>
+</resources>

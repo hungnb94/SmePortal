@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivAvatarFollower"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@color/colorDefault" />
+
+            <LinearLayout
+                android:layout_marginLeft="5dp"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Name"
+                    android:textSize="@dimen/medium_text" />
+
+                <TextView
+                    android:id="@+id/tvPosition"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Position"
+                    android:textSize="@dimen/medium_text" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/ivBlock"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/block_follow" />
+
+                <ImageView
+                    android:id="@+id/ivFollowing"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/following" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/colorDefault"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+</LinearLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SMEPortal</string>
+    <string name="already_member">Đã là thành viên</string>
+    <string name="back">Quay lại</string>
+    <string name="clear">Xóa</string>
+    <string name="email">Email</string>
+    <string name="exit">Thoát</string>
+    <string name="first_name">Tên</string>
+    <string name="forgot_password">Quên mật khẩu</string>
+    <string name="lack_email_or_password">Thiếu email hoặc password</string>
+    <string name="last_name">Họ</string>
+    <string name="login">Đăng nhập</string>
+    <string name="logout_text">Đăng xuất</string>
+    <string name="new_to_we_the_project">Thành viên mới</string>
+    <string name="ok">OK</string>
+    <string name="password">Mật khẩu</string>
+    <string name="please_input_full">Vui lòng nhập đầy đủ email và password</string>
+    <string name="please_wait">Vui lòng chờ</string>
+    <string name="re_enter_password">Gõ lại mật khẩu</string>
+    <string name="register">Đăng ký</string>
+    <string name="registration">Đăng ký</string>
+    <string name="remember_me">Ghi nhớ mật khẩu</string>
+    <string name="sign_in">Đăng nhập</string>
+    <string name="sign_in_facebook">Đăng nhập bằng Facebook</string>
+    <string name="sign_in_google">Đăng nhập bằng Google</string>
+    <string name="sign_up">Đăng ký</string>
+    <string name="title">Form đăng nhập</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="city">Thành phố</string>
+    <string name="country">Quốc gia</string>
+    <string name="location">Nơi ở</string>
+    <string name="profile_picture">Ảnh đại diện</string>
+    <string name="save_change">Lưu thay đổi</string>
+    <string name="this_field_cannot_be_blank">This field cannot be blank</string>
+    <string name="reset_password_failure">Reset password failure</string>
+</resources>

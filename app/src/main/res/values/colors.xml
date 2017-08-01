@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4ed3da</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorFacebook">#4b54fa</color>
+    <color name="colorGoogle">#fd6363</color>
+    <color name="colorLinkedIn">#0bc5e6</color>
+    <color name="white">#ffff</color>
+    <color name="colorDefault">#d6be14</color>
+    <color name="colorGray">#d9d8d7</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlue">#3669ce</color>
+    <color name="colorWhite">#00ffffff</color>
+    <color name="textColorRole">#d46a6a</color>
+</resources>
