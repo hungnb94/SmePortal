@@ -73,7 +73,6 @@
         <item>Music Video</item>
         <item>Dance</item>
         <item>VR/360/new tech</item>
-        <item>Every thing</item>
     </array>
     <array name="list_sort_by">
         <item>Popularity (viewed)</item>
@@ -82,7 +81,6 @@
         <item>Ending soonest</item>
         <item>Primary role</item>
         <item>Secondary role</item>
-        <item>Sort by</item>
     </array>
     <array name="list_role">
         <item>1ST ASSISTANT CAMERA (AC)</item>
@@ -97,6 +95,5 @@
         <item>BEST BOY ELECTRIC</item>
         <item>BOOM OPEARATOR</item>
         <item>CAMERA TECH</item>
-        <item>Roles</item>
     </array>
 </resources>
