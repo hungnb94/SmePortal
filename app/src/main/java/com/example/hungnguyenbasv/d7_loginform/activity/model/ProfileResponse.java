@@ -4,7 +4,7 @@ package com.example.hungnguyenbasv.d7_loginform.activity.model;
  * Created by hung.nguyenba.sv on 7/25/2017.
  */
 
-public class GetProfileResponse {
+public class ProfileResponse {
     private int status;
 
     private String message;

@@ -20,7 +20,7 @@ import com.example.hungnguyenbasv.d7_loginform.R;
 import com.example.hungnguyenbasv.d7_loginform.activity.activity.LoginActivity;
 import com.example.hungnguyenbasv.d7_loginform.activity.model.DistrictResponse.District;
 import com.example.hungnguyenbasv.d7_loginform.activity.model.DistrictResponse;
-import com.example.hungnguyenbasv.d7_loginform.activity.model.GetProfileResponse;
+import com.example.hungnguyenbasv.d7_loginform.activity.model.ProfileResponse;
 import com.example.hungnguyenbasv.d7_loginform.activity.model.StateResponse.State;
 import com.example.hungnguyenbasv.d7_loginform.activity.model.StateResponse;
 import com.example.hungnguyenbasv.d7_loginform.activity.remote.APIService;
@@ -136,7 +136,7 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
                         String res = response.body().string();
                         Log.e(TAG, "Profile: " + res);
                         Gson gson = new Gson();
-                        GetProfileResponse profileResponse = gson.fromJson(res, GetProfileResponse.class);
+                        ProfileResponse profileResponse = gson.fromJson(res, ProfileResponse.class);
                         // update lại giao diện
                         Picasso.with(getContext())
                                 .load(profileResponse.getData().getAvatarURL())

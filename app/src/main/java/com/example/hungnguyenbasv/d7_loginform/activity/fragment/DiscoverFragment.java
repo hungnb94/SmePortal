@@ -1,6 +1,8 @@
 package com.example.hungnguyenbasv.d7_loginform.activity.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,17 +21,27 @@ import com.example.hungnguyenbasv.d7_loginform.R;
 import com.example.hungnguyenbasv.d7_loginform.activity.activity.LoginActivity;
 import com.example.hungnguyenbasv.d7_loginform.activity.adapter.HintAdapter;
 import com.example.hungnguyenbasv.d7_loginform.activity.adapter.RecycleViewProjectAdapter;
-import com.example.hungnguyenbasv.d7_loginform.activity.model.ProjectModel;
+import com.example.hungnguyenbasv.d7_loginform.activity.model.ListProjectResponse;
+import com.example.hungnguyenbasv.d7_loginform.activity.remote.APIService;
+import com.example.hungnguyenbasv.d7_loginform.activity.remote.APIUtils;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DiscoverFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, AdapterView.OnItemSelectedListener {
     Spinner listFilter, listSortBy, listRole;
     RadioButton rbtEveryWhere, rbtNearMe, rbtNear;
     EditText edtNear;
+    List<ListProjectResponse.Data> listProject;
+    String token;
 
     private OnFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
+    RecycleViewProjectAdapter viewAdapter;
 
     public DiscoverFragment() {
         // Required empty public constructor
@@ -47,7 +59,35 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
         View view = inflater.inflate(R.layout.fragment_discover, container, false);
         initView(view);
         initListener();
+        getListProject();
         return view;
+    }
+
+    private void getListProject() {
+        SharedPreferences sharedPreferences =
+                getActivity().getSharedPreferences(LoginActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
+        APIService apiService = APIUtils.getAPIService();
+        apiService.getListProjects(
+                token,
+                "5|Mọi thứ|1|1",
+                "1|Phổ biến|2|3",
+                "4|Giám đốc nhân sự|3|4",
+                "1|EveryWhere|4|5",
+                "en"
+        ).enqueue(new Callback<ListProjectResponse>() {
+            @Override
+            public void onResponse(Call<ListProjectResponse> call, Response<ListProjectResponse> response) {
+                listProject = response.body().getData();
+                viewAdapter = new RecycleViewProjectAdapter(getContext(), listProject);
+                recyclerView.setAdapter(viewAdapter);// set adapter on recyclerview
+            }
+
+            @Override
+            public void onFailure(Call<ListProjectResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     private void initView(View view) {
@@ -99,14 +139,10 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
                         LinearLayoutManager.HORIZONTAL,
                         false
                 ));
-        ArrayList<ProjectModel> arrayList = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            arrayList.add(new ProjectModel());
-        }
-        RecycleViewProjectAdapter viewAdapter = new RecycleViewProjectAdapter(getContext(), arrayList);
+        listProject = new ArrayList<>();
+        viewAdapter = new RecycleViewProjectAdapter(getContext(), listProject);
         recyclerView.setAdapter(viewAdapter);// set adapter on recyclerview
-        adapter.notifyDataSetChanged();// Notify the adapter
+        viewAdapter.notifyDataSetChanged();// Notify the adapter
     }
 
     private void initListener() {

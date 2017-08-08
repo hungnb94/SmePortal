@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.example.hungnguyenbasv.d7_loginform.R;
 import com.example.hungnguyenbasv.d7_loginform.activity.activity.LoginActivity;
-import com.example.hungnguyenbasv.d7_loginform.activity.model.GetProfileResponse;
+import com.example.hungnguyenbasv.d7_loginform.activity.model.ProfileResponse;
 import com.example.hungnguyenbasv.d7_loginform.activity.remote.APIService;
 import com.example.hungnguyenbasv.d7_loginform.activity.remote.APIUtils;
 import com.google.gson.Gson;
@@ -87,7 +87,7 @@ public class ProfileFragment extends Fragment {
                     try {
                         String res = response.body().string();
                         Gson gson = new Gson();
-                        GetProfileResponse profileResponse = gson.fromJson(res, GetProfileResponse.class);
+                        ProfileResponse profileResponse = gson.fromJson(res, ProfileResponse.class);
                         updateViewProfile(profileResponse);
                     } catch (Exception e) {
                         Log.e(TAG, "Exception get infor " + e.toString());
@@ -106,7 +106,7 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void updateViewProfile(GetProfileResponse profileResponse) {
+    private void updateViewProfile(ProfileResponse profileResponse) {
         // update lại giao diện
         Picasso.with(getContext())
                 .load(profileResponse.getData().getAvatarURL())

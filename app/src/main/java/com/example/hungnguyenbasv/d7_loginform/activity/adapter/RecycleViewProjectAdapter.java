@@ -9,9 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hungnguyenbasv.d7_loginform.R;
-import com.example.hungnguyenbasv.d7_loginform.activity.model.ProjectModel;
+import com.example.hungnguyenbasv.d7_loginform.activity.model.ListProjectResponse;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hung.nguyenba.sv on 7/28/2017.
@@ -19,10 +20,10 @@ import java.util.ArrayList;
 
 public class RecycleViewProjectAdapter
         extends RecyclerView.Adapter<RecycleViewProjectAdapter.MyViewHolder> {
-    private ArrayList<ProjectModel> arrayList;
+    private List<ListProjectResponse.Data> arrayList;
     private Context context;
 
-    public RecycleViewProjectAdapter(Context context, ArrayList<ProjectModel> arrayList) {
+    public RecycleViewProjectAdapter(Context context, List<ListProjectResponse.Data> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -40,18 +41,17 @@ public class RecycleViewProjectAdapter
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        ProjectModel model = arrayList.get(position);
+        ListProjectResponse.Data model = arrayList.get(position);
 
         MyViewHolder mainHolder = (MyViewHolder) holder;// holder
 
-//        Bitmap image = BitmapFactory.decodeResource(context.getResources(),
-//                model.getImage());// This will convert drawbale image into
-//        // bitmap
-//
 //        // setting title
-//        mainHolder.title.setText(model.getTitle());
-//
-//        mainHolder.imageview.setImageBitmap(image);
+        mainHolder.tvProjectName.setText(model.getTitle());
+        Picasso.with(context)
+                .load(model.getImage_url())
+                .placeholder(R.drawable.refresh)
+                .error(R.drawable.error)
+                .into(mainHolder.ivProjectImage);
     }
 
     @Override
@@ -62,18 +62,16 @@ public class RecycleViewProjectAdapter
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         // View holder for gridview recycler view as we used in listview
-        public TextView title;
-        public ImageView imageview;
+        public TextView tvProjectName;
+        public ImageView ivProjectImage;
 
 
         public MyViewHolder(View view) {
             super(view);
 
             // Find all views ids
-//            this.title = (TextView) view.findViewById(R.id.title);
-//            this.imageview = (ImageView) view.findViewById(R.id.image);
-
-
+            this.tvProjectName = (TextView) view.findViewById(R.id.tvProjectName);
+            this.ivProjectImage = (ImageView) view.findViewById(R.id.ivProjectImage);
         }
     }
 }
