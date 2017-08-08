@@ -1,6 +1,7 @@
 package com.example.hungnguyenbasv.d7_loginform.activity.remote;
 
 import com.example.hungnguyenbasv.d7_loginform.activity.model.DistrictResponse;
+import com.example.hungnguyenbasv.d7_loginform.activity.model.ListProjectResponse;
 import com.example.hungnguyenbasv.d7_loginform.activity.model.Message;
 import com.example.hungnguyenbasv.d7_loginform.activity.model.ResetPasswordResponse;
 import com.example.hungnguyenbasv.d7_loginform.activity.model.ShowFollowingResponse;
@@ -56,4 +57,12 @@ public interface APIService {
     @POST("usersFollow/showFollower.json")
     @FormUrlEncoded
     Call<ShowFollowingResponse> showFollower(@Field("token") String token);
+
+    @POST("Discover/getListProjectsByOptionSearch.json")
+    @FormUrlEncoded
+    Call<ListProjectResponse> getListProjects(@Field("token") String token,
+                                              @Field("filterCategory") String filterCategory,
+                                              @Field("sortBy") String sortBy,
+                                              @Field("filterRole") String filterRole,
+                                              @Field("filterLocation") String filterLocation);
 }
