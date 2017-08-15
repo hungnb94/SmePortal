@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -19,9 +20,9 @@ import android.widget.Spinner;
 
 import com.example.hungnguyenbasv.d7_loginform.R;
 import com.example.hungnguyenbasv.d7_loginform.activity.activity.LoginActivity;
-import com.example.hungnguyenbasv.d7_loginform.activity.adapter.HintAdapter;
 import com.example.hungnguyenbasv.d7_loginform.activity.adapter.RecycleViewProjectAdapter;
 import com.example.hungnguyenbasv.d7_loginform.activity.model.ListProjectResponse;
+import com.example.hungnguyenbasv.d7_loginform.activity.model.OptionSearchResponse;
 import com.example.hungnguyenbasv.d7_loginform.activity.remote.APIService;
 import com.example.hungnguyenbasv.d7_loginform.activity.remote.APIUtils;
 
@@ -33,10 +34,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DiscoverFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, AdapterView.OnItemSelectedListener {
-    Spinner listFilter, listSortBy, listRole;
+    Spinner spinnerFilter, spinnerSortBy, spinnerRole;
     RadioButton rbtEveryWhere, rbtNearMe, rbtNear;
     EditText edtNear;
     List<ListProjectResponse.Data> listProject;
+    List<OptionSearchResponse.Data> listFilter, listSortBy, listRole;
     String token;
 
     private OnFragmentInteractionListener mListener;
@@ -57,16 +59,16 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_discover, container, false);
+        SharedPreferences sharedPreferences =
+                getActivity().getSharedPreferences(LoginActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
+
         initView(view);
         initListener();
-        getListProject();
         return view;
     }
 
     private void getListProject() {
-        SharedPreferences sharedPreferences =
-                getActivity().getSharedPreferences(LoginActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        token = sharedPreferences.getString("token", "");
         APIService apiService = APIUtils.getAPIService();
         apiService.getListProjects(
                 token,
@@ -78,9 +80,11 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
         ).enqueue(new Callback<ListProjectResponse>() {
             @Override
             public void onResponse(Call<ListProjectResponse> call, Response<ListProjectResponse> response) {
-                listProject = response.body().getData();
-                viewAdapter = new RecycleViewProjectAdapter(getContext(), listProject);
-                recyclerView.setAdapter(viewAdapter);// set adapter on recyclerview
+//                listProject = response.body().getData();
+                for (ListProjectResponse.Data data: response.body().getData()) listProject.add(data);
+//                viewAdapter = new RecycleViewProjectAdapter(getContext(), listProject);
+//                recyclerView.setAdapter(viewAdapter);// set adapter on recyclerview
+                viewAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -91,36 +95,10 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
     }
 
     private void initView(View view) {
-        listFilter = (Spinner) view.findViewById(R.id.spinnerFilter);
-        listSortBy = (Spinner) view.findViewById(R.id.spinnerSortBy);
-        listRole = (Spinner) view.findViewById(R.id.spinnerRoleAvailable);
-        HintAdapter adapter = new HintAdapter(getContext(),
-                android.R.layout.simple_spinner_item,
-                getResources().getStringArray(R.array.list_filter)
-        );
-        adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-        listFilter.setAdapter(adapter);
-
-// show hint
-        listFilter.setSelection(adapter.getCount());
-        // Tái sử dụng lại adapter
-        adapter = new HintAdapter(getContext(),
-                android.R.layout.simple_spinner_item,
-                getResources().getStringArray(R.array.list_sort_by)
-        );
-        adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-        listSortBy.setAdapter(adapter);
-        listSortBy.setSelection(adapter.getCount());
-        // Tiếp tục sử dụng lại
-        adapter = new HintAdapter(
-                getContext(),
-                android.R.layout.simple_spinner_item,
-                getResources().getStringArray(R.array.list_role)
-        );
-        adapter.setDropDownViewResource
-                (android.R.layout.simple_list_item_single_choice);
-        listRole.setAdapter(adapter);
-        listRole.setSelection(adapter.getCount());
+        spinnerFilter = (Spinner) view.findViewById(R.id.spinnerFilter);
+        spinnerSortBy = (Spinner) view.findViewById(R.id.spinnerSortBy);
+        spinnerRole = (Spinner) view.findViewById(R.id.spinnerRoleAvailable);
+        updateSpinner();
 
         rbtEveryWhere = (RadioButton) view.findViewById(R.id.rbtEveryWhere);
         rbtNearMe = (RadioButton) view.findViewById(R.id.rbtNearMe);
@@ -143,12 +121,75 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
         viewAdapter = new RecycleViewProjectAdapter(getContext(), listProject);
         recyclerView.setAdapter(viewAdapter);// set adapter on recyclerview
         viewAdapter.notifyDataSetChanged();// Notify the adapter
+        getListProject();
+    }
+
+    private void updateSpinner() {
+        // Update spinner filter
+        APIService apiService = APIUtils.getAPIService();
+        apiService.getOptionSearch(token, "1").enqueue(new Callback<OptionSearchResponse>() {
+            @Override
+            public void onResponse(Call<OptionSearchResponse> call, Response<OptionSearchResponse> response) {
+                listFilter = response.body().getData();
+                ArrayAdapter adapter = new ArrayAdapter(
+                        getContext(),
+                        android.R.layout.simple_spinner_item,
+                        listFilter
+                );
+                adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+                spinnerFilter.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<OptionSearchResponse> call, Throwable t) {
+            }
+        });
+
+        // Update spinner sort by
+        apiService.getOptionSearch(token, "2").enqueue(new Callback<OptionSearchResponse>() {
+            @Override
+            public void onResponse(Call<OptionSearchResponse> call, Response<OptionSearchResponse> response) {
+                listSortBy = response.body().getData();
+                ArrayAdapter adapter = new ArrayAdapter(
+                        getContext(),
+                        android.R.layout.simple_spinner_item,
+                        listSortBy
+                );
+                adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+                spinnerSortBy.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<OptionSearchResponse> call, Throwable t) {
+
+            }
+        });
+
+        apiService.getOptionSearch(token, "3").enqueue(new Callback<OptionSearchResponse>() {
+            @Override
+            public void onResponse(Call<OptionSearchResponse> call, Response<OptionSearchResponse> response) {
+                listRole = response.body().getData();
+                ArrayAdapter adapter = new ArrayAdapter(
+                        getContext(),
+                        android.R.layout.simple_spinner_item,
+                        listRole
+                );
+                adapter.setDropDownViewResource
+                        (android.R.layout.simple_list_item_single_choice);
+                spinnerRole.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<OptionSearchResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     private void initListener() {
-        listFilter.setOnItemSelectedListener(this);
-        listSortBy.setOnItemSelectedListener(this);
-        listRole.setOnItemSelectedListener(this);
+        spinnerFilter.setOnItemSelectedListener(this);
+        spinnerSortBy.setOnItemSelectedListener(this);
+        spinnerRole.setOnItemSelectedListener(this);
 
         rbtEveryWhere.setOnCheckedChangeListener(this);
         rbtNearMe.setOnCheckedChangeListener(this);

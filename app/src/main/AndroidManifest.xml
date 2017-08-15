@@ -27,6 +27,7 @@
         <activity android:name=".activity.activity.ForgotPasswordActivity" />
         <!-- <activity android:name=".activity.activity.LoginActivity" /> -->
         <activity android:name=".activity.activity.MenuActivity" />
+        <activity android:name=".activity.activity.ProjectInforActivity"></activity>
     </application>
 
 </manifest>

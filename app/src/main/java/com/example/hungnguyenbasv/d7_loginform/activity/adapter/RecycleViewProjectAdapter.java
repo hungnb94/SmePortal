@@ -1,6 +1,7 @@
 package com.example.hungnguyenbasv.d7_loginform.activity.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hungnguyenbasv.d7_loginform.R;
+import com.example.hungnguyenbasv.d7_loginform.activity.activity.ProjectInforActivity;
 import com.example.hungnguyenbasv.d7_loginform.activity.model.ListProjectResponse;
 import com.squareup.picasso.Picasso;
 
@@ -52,6 +54,15 @@ public class RecycleViewProjectAdapter
                 .placeholder(R.drawable.refresh)
                 .error(R.drawable.error)
                 .into(mainHolder.ivProjectImage);
+
+        // set on item click listener
+        mainHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProjectInforActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

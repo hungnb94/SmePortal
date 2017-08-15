@@ -20,6 +20,7 @@ import com.example.hungnguyenbasv.d7_loginform.activity.model.ShowFollowingRespo
 import com.example.hungnguyenbasv.d7_loginform.activity.remote.APIService;
 import com.example.hungnguyenbasv.d7_loginform.activity.remote.APIUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,7 +34,7 @@ public class FollowingFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private String token;
-    private List<ShowFollowingResponse.User> followings;
+    private List<ShowFollowingResponse.User> followings = new ArrayList<>();
 
     public FollowingFragment() {
         // Required empty public constructor
@@ -66,7 +67,6 @@ public class FollowingFragment extends Fragment {
             public void onResponse(Call<ShowFollowingResponse> call, Response<ShowFollowingResponse> response) {
                 if (response.isSuccessful()) {
                     followings = response.body().getData().getUser();
-//                    Toast.makeText(getContext(), followings.get(1).getName(), Toast.LENGTH_SHORT).show();
                     RecycleViewFollowingAdapter adapter = new RecycleViewFollowingAdapter(getContext(), followings);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

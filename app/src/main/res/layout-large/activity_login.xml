@@ -51,7 +51,7 @@
                 android:textSize="@dimen/large_text_large" />
 
             <EditText
-                android:textSize="@dimen/medium_text_large"
+                android:textSize="15sp"
                 android:background="@color/colorGray"
                 android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:textSize="@dimen/medium_text_large"
+                android:textSize="15sp"
                 android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/editTextHeigh_large"
