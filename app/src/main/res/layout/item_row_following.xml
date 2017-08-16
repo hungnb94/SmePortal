@@ -26,7 +26,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvName"
+                    android:id="@+id/tvNameFollowing"
                     android:textColor="@android:color/background_dark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
                     android:textSize="@dimen/medium_text" />
 
                 <TextView
-                    android:id="@+id/tvPosition"
+                    android:id="@+id/tvPositionFollowing"
                     android:textColor="@android:color/background_dark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,13 +52,13 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/ivBlock"
+                    android:id="@+id/ivBlockFollowing"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:background="@drawable/block_follow" />
 
                 <ImageView
-                    android:id="@+id/ivFollowing"
+                    android:id="@+id/ivFollowingFollowing"
                     android:layout_width="100dp"
                     android:layout_height="35dp"
                     android:background="@drawable/following" />

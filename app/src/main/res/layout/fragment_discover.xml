@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -89,12 +89,13 @@
                                 android:text="@string/near" />
 
                             <EditText
+                                android:inputType="text"
                                 android:layout_marginRight="5dp"
                                 android:enabled="false"
                                 android:layout_marginLeft="5dp"
                                 android:background="@drawable/border_search"
                                 android:id="@+id/edtNear"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1" />
                         </LinearLayout>
@@ -106,14 +107,19 @@
             <LinearLayout
                 android:layout_marginTop="@dimen/margin_default"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/listProject"
+                android:layout_height="match_parent">
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent">
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/listProject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </ScrollView>
             </LinearLayout>
         </LinearLayout>
     <!--</ScrollView>-->
 
-</FrameLayout>
+</LinearLayout>

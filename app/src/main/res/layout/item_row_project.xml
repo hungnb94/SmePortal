@@ -12,12 +12,14 @@
 
 
         <ImageView
+            android:scaleType="centerCrop"
             android:id="@+id/ivProjectImage"
             android:layout_width="250dp"
             android:layout_height="120dp"
             android:src="@drawable/gin" />
 
         <TextView
+            android:singleLine="true"
             android:id="@+id/tvProjectName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,9 +91,15 @@
                     android:layout_height="match_parent" />
             </LinearLayout>
         </LinearLayout>
-        <SeekBar
+
+        <ProgressBar
+            android:progress="15"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <!--<SeekBar-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

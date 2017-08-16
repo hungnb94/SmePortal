@@ -1,5 +1,6 @@
 package com.example.hungnguyenbasv.d7_loginform.activity.adapter;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -13,25 +14,20 @@ import com.example.hungnguyenbasv.d7_loginform.activity.fragment.ProfileFragment
  */
 
 public class UserAdapter extends FragmentStatePagerAdapter {
+    Activity context;
     ProfileFragment profileFragment;
     FollowingFragment followingFragment;
+
     FollowersFragment followersFragment;
 
-
-    public void setProfileFragment(ProfileFragment profileFragment) {
-        this.profileFragment = profileFragment;
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 
-    public void setFollowingFragment(FollowingFragment followingFragment) {
-        this.followingFragment = followingFragment;
-    }
-
-    public void setFollowersFragment(FollowersFragment followersFragment) {
-        this.followersFragment = followersFragment;
-    }
-
-    public UserAdapter(FragmentManager fm) {
+    public UserAdapter(FragmentManager fm, Activity context) {
         super(fm);
+        this.context = context;
     }
 
     @Override
@@ -43,12 +39,14 @@ public class UserAdapter extends FragmentStatePagerAdapter {
                 frag = profileFragment;
                 break;
             case 1:
-                if (followingFragment == null) followingFragment = new FollowingFragment();
+                if (followingFragment == null) followingFragment = new FollowingFragment(context);
                 frag = followingFragment;
                 break;
-            default:
+            case 2:
                 if (followersFragment == null) followersFragment = new FollowersFragment();
                 frag = followersFragment;
+                break;
+            default:
                 break;
         }
         return frag;
@@ -61,10 +59,13 @@ public class UserAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position){
-            case 0: return "Profile";
-            case 1: return "Following";
-            default: return "Followers";
+        switch (position) {
+            case 0:
+                return "Profile";
+            case 1:
+                return "Following";
+            default:
+                return "Followers";
         }
     }
 }

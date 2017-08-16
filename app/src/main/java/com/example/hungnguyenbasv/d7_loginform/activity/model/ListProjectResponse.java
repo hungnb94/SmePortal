@@ -1,12 +1,13 @@
 package com.example.hungnguyenbasv.d7_loginform.activity.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by hung.nguyenba.sv on 8/8/2017.
  */
 
-public class ListProjectResponse {
+public class ListProjectResponse implements Serializable{
 
     private int status;
 
@@ -33,7 +34,7 @@ public class ListProjectResponse {
         return this.data;
     }
 
-    public static class Data
+    public class Data implements Serializable
     {
         private String roleUser;
 
@@ -187,9 +188,10 @@ public class ListProjectResponse {
         public List<List_roles> getList_roles(){
             return this.list_roles;
         }
+
     }
 
-    public class List_roles
+    public class List_roles implements Serializable
     {
         private int count;
 

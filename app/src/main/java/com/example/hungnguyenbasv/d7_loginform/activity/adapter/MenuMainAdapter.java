@@ -56,10 +56,16 @@ public class MenuMainAdapter extends FragmentStatePagerAdapter {
 //    }
 
     @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+    @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                if (userFragment == null) userFragment = new UserFragment();
+                if (userFragment == null) userFragment= new UserFragment();
+                userFragment.initFragment();
                 return userFragment;
             case 1:
                 if (messageFragment == null) messageFragment = new MessageFragment();
@@ -67,9 +73,11 @@ public class MenuMainAdapter extends FragmentStatePagerAdapter {
             case 2:
                 if (discoverFragment == null) discoverFragment = new DiscoverFragment();
                 return discoverFragment;
-            default:
+            case 3:
                 if (myFolderFragment == null) myFolderFragment = new MyFolderFragment();
                 return myFolderFragment;
+            default:
+                return null;
         }
     }
 

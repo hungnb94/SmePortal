@@ -55,7 +55,7 @@ public class MenuMainActivity extends FragmentActivity {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout_menu);
         FragmentManager manager = getSupportFragmentManager();
 
-        MenuMainAdapter adapter = new MenuMainAdapter(manager);
+        final MenuMainAdapter adapter = new MenuMainAdapter(manager);
         adapter.setUserFragment(userFragment);
 
         pager.setAdapter(adapter);
@@ -65,5 +65,24 @@ public class MenuMainActivity extends FragmentActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_chat);
         tabLayout.getTabAt(2).setIcon(R.drawable.discover);
         tabLayout.getTabAt(3).setIcon(R.drawable.my_folder);
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position==0){
+                    UserFragment userFragment = (UserFragment) adapter.getItem(0);
+                    userFragment.initFragment();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 }

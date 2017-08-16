@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends UpdateFragment {
     static final String TAG = "ProfileFragment TAG";
     String token;
     TextView tvName, tvBiography;
@@ -92,9 +91,12 @@ public class ProfileFragment extends Fragment {
                     } catch (Exception e) {
                         Log.e(TAG, "Exception get infor " + e.toString());
                         e.printStackTrace();
-                        Intent intent = new Intent(getContext(), LoginActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
+                        try {
+                            Intent intent = new Intent(getContext(), LoginActivity.class);
+                            startActivity(intent);
+                            getActivity().finish();
+                        } catch (Exception ex) {
+                        }
                     }
                 }
             }

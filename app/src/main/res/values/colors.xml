@@ -13,4 +13,6 @@
     <color name="colorBlue">#3669ce</color>
     <color name="colorWhite">#00ffffff</color>
     <color name="textColorRole">#d46a6a</color>
+    <color name="btn_join_now">#35db47</color>
+    <color name="btn_follow">#4f5aa2</color>
 </resources>

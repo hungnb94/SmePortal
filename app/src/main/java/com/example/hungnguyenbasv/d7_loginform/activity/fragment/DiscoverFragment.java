@@ -1,7 +1,6 @@
 package com.example.hungnguyenbasv.d7_loginform.activity.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,20 +32,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DiscoverFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, AdapterView.OnItemSelectedListener {
+public class DiscoverFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
     Spinner spinnerFilter, spinnerSortBy, spinnerRole;
     RadioButton rbtEveryWhere, rbtNearMe, rbtNear;
     EditText edtNear;
     List<ListProjectResponse.Data> listProject;
     List<OptionSearchResponse.Data> listFilter, listSortBy, listRole;
-    String token;
+    String token, filterCategory, sortBy, filterRole, filterLocation = "1|EveryWhere|4|5";
 
     private OnFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
-    RecycleViewProjectAdapter viewAdapter;
+    RecycleViewProjectAdapter recycleViewProjectAdapter;
 
     public DiscoverFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -58,6 +56,7 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+//        Toast.makeText(getContext(), "Discover Init", Toast.LENGTH_SHORT).show();
         View view = inflater.inflate(R.layout.fragment_discover, container, false);
         SharedPreferences sharedPreferences =
                 getActivity().getSharedPreferences(LoginActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
@@ -69,22 +68,28 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
     }
 
     private void getListProject() {
+        if (token == null
+                || filterCategory == null
+                || sortBy == null
+                || filterRole == null
+                || filterLocation == null) {
+            return;
+        }
         APIService apiService = APIUtils.getAPIService();
         apiService.getListProjects(
                 token,
-                "5|Mọi thứ|1|1",
-                "1|Phổ biến|2|3",
-                "4|Giám đốc nhân sự|3|4",
-                "1|EveryWhere|4|5",
+                filterCategory,
+                sortBy,
+                filterRole,
+                filterLocation,
                 "en"
         ).enqueue(new Callback<ListProjectResponse>() {
             @Override
             public void onResponse(Call<ListProjectResponse> call, Response<ListProjectResponse> response) {
-//                listProject = response.body().getData();
-                for (ListProjectResponse.Data data: response.body().getData()) listProject.add(data);
+                listProject.addAll(response.body().getData());
 //                viewAdapter = new RecycleViewProjectAdapter(getContext(), listProject);
 //                recyclerView.setAdapter(viewAdapter);// set adapter on recyclerview
-                viewAdapter.notifyDataSetChanged();
+                recycleViewProjectAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -118,10 +123,9 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
                         false
                 ));
         listProject = new ArrayList<>();
-        viewAdapter = new RecycleViewProjectAdapter(getContext(), listProject);
-        recyclerView.setAdapter(viewAdapter);// set adapter on recyclerview
-        viewAdapter.notifyDataSetChanged();// Notify the adapter
-        getListProject();
+        recycleViewProjectAdapter = new RecycleViewProjectAdapter(getContext(), listProject);
+        recyclerView.setAdapter(recycleViewProjectAdapter);// set adapter on recyclerview
+        recycleViewProjectAdapter.notifyDataSetChanged();// Notify the adapter
     }
 
     private void updateSpinner() {
@@ -187,19 +191,49 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
     }
 
     private void initListener() {
-        spinnerFilter.setOnItemSelectedListener(this);
-        spinnerSortBy.setOnItemSelectedListener(this);
-        spinnerRole.setOnItemSelectedListener(this);
+        spinnerFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                OptionSearchResponse.Data data = listFilter.get(i);
+                filterCategory = data.getObject_id() + "|" + data.getObject_name()
+                        + "|" + data.getGroup() + "|" + data.getType();
+                getListProject();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        spinnerSortBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                OptionSearchResponse.Data data = listSortBy.get(i);
+                sortBy = data.getObject_id() + "|" + data.getObject_name()
+                        + "|" + data.getGroup() + "|" + data.getType();
+                getListProject();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        spinnerRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                OptionSearchResponse.Data data = listRole.get(i);
+                filterRole = data.getObject_id() + "|" + data.getObject_name()
+                        + "|" + data.getGroup() + "|" + data.getType();
+                getListProject();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
         rbtEveryWhere.setOnCheckedChangeListener(this);
         rbtNearMe.setOnCheckedChangeListener(this);
         rbtNear.setOnCheckedChangeListener(this);
-    }
-
-    public void clickExit() {
-        Intent intent = new Intent(getContext(), LoginActivity.class);
-        startActivity(intent);
-        getActivity().finish();
     }
 
     @Override
@@ -223,17 +257,7 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-    }
-
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

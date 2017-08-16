@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,20 +19,22 @@ import com.example.hungnguyenbasv.d7_loginform.activity.model.ShowFollowingRespo
 import com.example.hungnguyenbasv.d7_loginform.activity.remote.APIService;
 import com.example.hungnguyenbasv.d7_loginform.activity.remote.APIUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FollowersFragment extends Fragment {
+public class FollowersFragment extends UpdateFragment {
     static final String TAG = "FollowersFragment TAG";
     SharedPreferences sharedPreferences;
     RecyclerView listFollower;
-
+    private APIService apiService;
     private OnFragmentInteractionListener mListener;
     private String token;
-    private List<ShowFollowingResponse.User> followers;
+    private List<ShowFollowingResponse.User> followers = new ArrayList<>();
+    private RecycleViewFollowerAdapter adapter;
 
 
     public FollowersFragment() {
@@ -58,21 +59,23 @@ public class FollowersFragment extends Fragment {
         return view;
     }
     private void initView(View view) {
+//        Toast.makeText(getContext(), "InitView Follower", Toast.LENGTH_SHORT).show();
         listFollower = (RecyclerView) view.findViewById(R.id.listFollower);
-        APIService apiService = APIUtils.getAPIService();
+        adapter = new RecycleViewFollowerAdapter(getContext(), followers);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        listFollower.setLayoutManager(layoutManager);
+        listFollower.setAdapter(adapter);
+        apiService = APIUtils.getAPIService();
         apiService.showFollower(token).enqueue(new Callback<ShowFollowingResponse>() {
             @Override
             public void onResponse(Call<ShowFollowingResponse> call, Response<ShowFollowingResponse> response) {
                 if (response.isSuccessful()) {
-                    followers = response.body().getData().getUser();
+                    followers.clear();
+                    followers.addAll(response.body().getData().getUser());
 //                    Toast.makeText(getContext(), followings.get(1).getName(), Toast.LENGTH_SHORT).show();
-                    RecycleViewFollowerAdapter adapter = new RecycleViewFollowerAdapter(getContext(), followers);
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-                    listFollower.setLayoutManager(layoutManager);
                     adapter.notifyDataSetChanged();
-                    listFollower.setAdapter(adapter);
                 }
             }
 
@@ -88,6 +91,33 @@ public class FollowersFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void update() {
+        apiService = APIUtils.getAPIService();
+        apiService.showFollower(token).enqueue(new Callback<ShowFollowingResponse>() {
+            @Override
+            public void onResponse(Call<ShowFollowingResponse> call, Response<ShowFollowingResponse> response) {
+                if (response.isSuccessful()) {
+                    followers.clear();
+                    followers.addAll(response.body().getData().getUser());
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ShowFollowingResponse> call, Throwable t) {
+                Toast.makeText(
+                        getActivity(),
+//                        getResources().getString(R.string.get_following_failure),
+                        "Get list follower failure",
+                        Toast.LENGTH_SHORT
+                ).show();
+                Log.e(TAG, "Get list follower failure");
+            }
+        });
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

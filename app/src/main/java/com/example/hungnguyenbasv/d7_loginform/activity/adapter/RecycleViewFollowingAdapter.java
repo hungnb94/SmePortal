@@ -42,11 +42,6 @@ public class RecycleViewFollowingAdapter
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         ShowFollowingResponse.User model = arrayList.get(position);
-//        Picasso.with(context)
-//                .load(model.getAvatar())
-//                .placeholder(R.drawable.refresh)
-//                .error(R.drawable.error)
-//                .into(holder.ivAvatar);
         ImageUtils.setImageByPicasso(model.getAvatar(), holder.ivAvatar);
 
         holder.tvName.setText(model.getName());
@@ -65,10 +60,10 @@ public class RecycleViewFollowingAdapter
         public ViewHolder(View itemView) {
             super(itemView);
             ivAvatar = (ImageView) itemView.findViewById(R.id.ivAvatarFollowing);
-            ivBlock = (ImageView) itemView.findViewById(R.id.ivBlock);
-            ivFollowing = (ImageView) itemView.findViewById(R.id.ivFollowing);
-            tvName = (TextView) itemView.findViewById(R.id.tvName);
-            tvPosition = (TextView) itemView.findViewById(R.id.tvPosition);
+            ivBlock = (ImageView) itemView.findViewById(R.id.ivBlockFollowing);
+            ivFollowing = (ImageView) itemView.findViewById(R.id.ivFollowingFollowing);
+            tvName = (TextView) itemView.findViewById(R.id.tvNameFollowing);
+            tvPosition = (TextView) itemView.findViewById(R.id.tvPositionFollowing);
 
             ivBlock.setOnClickListener(new View.OnClickListener() {
                 @Override

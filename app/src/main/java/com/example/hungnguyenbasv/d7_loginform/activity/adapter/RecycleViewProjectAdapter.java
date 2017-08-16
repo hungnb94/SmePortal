@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.hungnguyenbasv.d7_loginform.R;
 import com.example.hungnguyenbasv.d7_loginform.activity.activity.ProjectInforActivity;
 import com.example.hungnguyenbasv.d7_loginform.activity.model.ListProjectResponse;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class RecycleViewProjectAdapter
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         ListProjectResponse.Data model = arrayList.get(position);
 
         MyViewHolder mainHolder = (MyViewHolder) holder;// holder
@@ -60,6 +61,9 @@ public class RecycleViewProjectAdapter
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProjectInforActivity.class);
+                ListProjectResponse.Data data = arrayList.get(position);
+                Gson gson = new Gson();
+                intent.putExtra("data", gson.toJson(data));
                 context.startActivity(intent);
             }
         });

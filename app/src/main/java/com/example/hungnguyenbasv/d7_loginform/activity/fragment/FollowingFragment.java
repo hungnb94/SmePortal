@@ -1,10 +1,10 @@
 package com.example.hungnguyenbasv.d7_loginform.activity.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,7 +27,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FollowingFragment extends Fragment {
+public class FollowingFragment extends UpdateFragment {
+    Activity context;
     static final String TAG = "FollowingFragment TAG";
     SharedPreferences sharedPreferences;
     RecyclerView listFollowing;
@@ -35,9 +36,12 @@ public class FollowingFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private String token;
     private List<ShowFollowingResponse.User> followings = new ArrayList<>();
+    private RecycleViewFollowingAdapter adapter;
+    private APIService apiService;
 
-    public FollowingFragment() {
+    public FollowingFragment(Activity context) {
         // Required empty public constructor
+        this.context = context;
     }
 
 
@@ -48,6 +52,7 @@ public class FollowingFragment extends Fragment {
         sharedPreferences = getActivity().
                 getSharedPreferences(LoginActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         token = sharedPreferences.getString("token", null);
+        adapter = new RecycleViewFollowingAdapter(getContext(), followings);
     }
 
     @Override
@@ -59,32 +64,56 @@ public class FollowingFragment extends Fragment {
         return view;
     }
 
-    private void initView(View view) {
-        listFollowing = (RecyclerView) view.findViewById(R.id.listFollowing);
-        APIService apiService = APIUtils.getAPIService();
+    public void initView(View view) {
+        try {
+//            Toast.makeText(getContext(), "InitView Following", Toast.LENGTH_SHORT).show();
+            listFollowing = (RecyclerView) view.findViewById(R.id.listFollowing);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            listFollowing.setLayoutManager(layoutManager);
+            listFollowing.setAdapter(adapter);
+            apiService = APIUtils.getAPIService();
+            apiService.showFollowing(token).enqueue(new Callback<ShowFollowingResponse>() {
+                @Override
+                public void onResponse(Call<ShowFollowingResponse> call, Response<ShowFollowingResponse> response) {
+                    if (response.isSuccessful()) {
+                        followings.clear();
+                        followings.addAll(response.body().getData().getUser());
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ShowFollowingResponse> call, Throwable t) {
+                    Toast.makeText(
+                            getActivity(),
+//                        getResources().getString(R.string.get_following_failure),
+                            "Get list following failure",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                    Log.e(TAG, "Get list following failure");
+                }
+            });
+        } catch (Exception e){
+
+        }
+    }
+
+    public void update(){
+        apiService = APIUtils.getAPIService();
         apiService.showFollowing(token).enqueue(new Callback<ShowFollowingResponse>() {
-            @Override
+
             public void onResponse(Call<ShowFollowingResponse> call, Response<ShowFollowingResponse> response) {
                 if (response.isSuccessful()) {
-                    followings = response.body().getData().getUser();
-                    RecycleViewFollowingAdapter adapter = new RecycleViewFollowingAdapter(getContext(), followings);
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-                    listFollowing.setLayoutManager(layoutManager);
+                    Toast.makeText(getContext(), "Update", Toast.LENGTH_SHORT).show();
+                    followings.clear();
+                    followings.addAll(response.body().getData().getUser());
                     adapter.notifyDataSetChanged();
-                    listFollowing.setAdapter(adapter);
                 }
             }
 
             @Override
             public void onFailure(Call<ShowFollowingResponse> call, Throwable t) {
-                Toast.makeText(
-                        getActivity(),
-//                        getResources().getString(R.string.get_following_failure),
-                        "Get list following failure",
-                        Toast.LENGTH_SHORT
-                ).show();
                 Log.e(TAG, "Get list following failure");
             }
         });
