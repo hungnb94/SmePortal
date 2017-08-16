@@ -1,5 +1,6 @@
 package com.example.hungnguyenbasv.d7_loginform.activity.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -43,6 +44,7 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
     private OnFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
     RecycleViewProjectAdapter recycleViewProjectAdapter;
+    ProgressDialog pDialog;
 
     public DiscoverFragment() {
     }
@@ -55,8 +57,6 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-//        Toast.makeText(getContext(), "Discover Init", Toast.LENGTH_SHORT).show();
         View view = inflater.inflate(R.layout.fragment_discover, container, false);
         SharedPreferences sharedPreferences =
                 getActivity().getSharedPreferences(LoginActivity.SHARED_PREFERENCES, Context.MODE_PRIVATE);
@@ -75,6 +75,9 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
                 || filterLocation == null) {
             return;
         }
+//        pDialog = new ProgressDialog(getContext());
+//        pDialog.setTitle(getResources().getString(R.string.please_wait));
+//        pDialog.show();
         APIService apiService = APIUtils.getAPIService();
         apiService.getListProjects(
                 token,
@@ -86,15 +89,19 @@ public class DiscoverFragment extends Fragment implements CompoundButton.OnCheck
         ).enqueue(new Callback<ListProjectResponse>() {
             @Override
             public void onResponse(Call<ListProjectResponse> call, Response<ListProjectResponse> response) {
+                listProject.clear();
                 listProject.addAll(response.body().getData());
-//                viewAdapter = new RecycleViewProjectAdapter(getContext(), listProject);
-//                recyclerView.setAdapter(viewAdapter);// set adapter on recyclerview
                 recycleViewProjectAdapter.notifyDataSetChanged();
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
             }
 
             @Override
             public void onFailure(Call<ListProjectResponse> call, Throwable t) {
-
+//                if (pDialog.isShowing()){
+//                    pDialog.dismiss();
+//                }
             }
         });
     }

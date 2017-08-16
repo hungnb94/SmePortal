@@ -93,30 +93,7 @@ public class UserFragment extends Fragment {
             final UserAdapter adapter = new UserAdapter(manager, getActivity());
             pager.setAdapter(adapter);
             tabLayout.setupWithViewPager(pager);
-//            pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-            pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-                    if (position == 1) {
-//                        Toast.makeText(getContext(), "Selected Page: " + adapter.getPageTitle(position), Toast.LENGTH_SHORT).show();
-//                        Fragment fragment = adapter.getItem(1);
-//                        if (fragment instanceof FollowingFragment) {
-//                            ((FollowingFragment) fragment).initView(getView());
-//                        }
-                    }
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
-            pager.getAdapter().notifyDataSetChanged();
+            pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         } catch (NullPointerException e) {
 
         }

@@ -93,6 +93,8 @@
         </LinearLayout>
 
         <ProgressBar
+            android:progressTint="@color/colorDefault"
+            android:indeterminateTint="@color/colorDefault"
             android:progress="15"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
