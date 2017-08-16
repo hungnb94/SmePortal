@@ -1,9 +1,11 @@
 package com.example.hungnguyenbasv.d7_loginform.activity.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -89,6 +91,12 @@ public class SettingFragment extends Fragment {
     }
 
     private void accountDetails() {
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        //Khi được goi, fragment truyền vào sẽ thay thế vào vị trí FrameLayout trong Activity chính
+        transaction.replace(android.R.id.content, new AccountDetailFragment());
+        transaction.commit();
+
     }
 
     private void notification() {

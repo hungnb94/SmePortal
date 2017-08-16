@@ -65,6 +65,7 @@
                         <!--android:layout_height="wrap_content">-->
 
                         <RadioButton
+                            android:buttonTint="@color/colorDefault"
                             android:id="@+id/rbtEveryWhere"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -72,6 +73,7 @@
                             android:text="@string/every_where" />
 
                         <RadioButton
+                            android:buttonTint="@color/colorDefault"
                             android:id="@+id/rbtNearMe"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -83,6 +85,7 @@
                             android:orientation="horizontal">
 
                             <RadioButton
+                                android:buttonTint="@color/colorDefault"
                                 android:id="@+id/rbtNear"
                                 android:layout_width="wrap_content"
                                 android:layout_height="fill_parent"

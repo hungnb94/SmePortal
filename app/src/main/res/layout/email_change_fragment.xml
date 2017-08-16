@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffff">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#F7F7F7">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/chevron_left"
+            android:background="#F7F7F7"
+            android:id="@+id/btnChangeEmailOut"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="24dp"
+            android:text="Change Email"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/background_dark"
+            android:background="#F7F7F7"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/background_dark"></LinearLayout>
+    <LinearLayout
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/stroke">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/email"
+            android:textColorHint="#FF9B9999"
+            android:textSize="12dp"
+            android:textColor="@android:color/background_dark"
+            android:id="@+id/tvEmail"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/stroke">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="New Email"
+            android:textColorHint="#FF9B9999"
+            android:textSize="12dp"
+            android:textColor="@android:color/background_dark"
+            android:id="@+id/tvNewEmail"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/stroke">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_orange_dark"
+            android:text="Change Email"
+            android:id="@+id/btnChangeEmail"/>
+    </LinearLayout>
+
+</LinearLayout>

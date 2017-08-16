@@ -1,5 +1,7 @@
 package com.example.hungnguyenbasv.d7_loginform.activity.remote;
 
+import com.example.hungnguyenbasv.d7_loginform.activity.model.ChangeEmailResponse;
+import com.example.hungnguyenbasv.d7_loginform.activity.model.ChangePasswordResponse;
 import com.example.hungnguyenbasv.d7_loginform.activity.model.DistrictResponse;
 import com.example.hungnguyenbasv.d7_loginform.activity.model.ListProjectResponse;
 import com.example.hungnguyenbasv.d7_loginform.activity.model.Message;
@@ -72,4 +74,15 @@ public interface APIService {
                                               @Field("filterRole") String filterRole,
                                               @Field("filterLocation") String filterLocation,
                                               @Field("language") String language);
+
+    @POST("users/changeEmail.json")
+    @FormUrlEncoded
+    Call<ChangeEmailResponse> changeEmail(@Field("token") String token,
+                                          @Field("email") String old_password);
+
+    @POST("users/changePass.json")
+    @FormUrlEncoded
+    Call<ChangePasswordResponse> changePassowrd(@Field("token") String token,
+                                          @Field("old_password") String old_password,
+                                          @Field("password") String password);
 }
