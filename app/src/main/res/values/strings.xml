@@ -59,6 +59,7 @@
     <string name="notifications">Notifications</string>
     <string name="join_now">Join now</string>
     <string name="follow">Follow+</string>
+    <string name="send_mail_to_reset_password">Send mail to reset password</string>
 
     <array name="list_filter">
         <item>Recommended to you</item>
